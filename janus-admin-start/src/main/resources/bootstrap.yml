@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: janus-admin
+
+apollo:
+  bootstrap:
+    enabled: true
+    namespaces: application
+
+halo:
+  web:
+    corsEnabled: true
+  shiro:
+    apiUrl: /api/**
+    loginUrl: /admin/login
+    unauthorizedUrl: /403
+    jwt-filter-url: /admin/**
+    d-b-realm-enabled: true
