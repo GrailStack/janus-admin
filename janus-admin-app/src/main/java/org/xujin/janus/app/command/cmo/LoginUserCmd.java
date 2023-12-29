@@ -10,7 +10,7 @@ import lombok.Data;
 @Data
 public class LoginUserCmd extends Command {
 
-    private String username;
+    private String userName;
     private String password;
 
 }
