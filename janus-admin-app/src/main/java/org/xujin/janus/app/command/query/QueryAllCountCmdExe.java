@@ -28,7 +28,7 @@ import java.util.Map;
  * @date 2020/6/11 14:34
  **/
 @CmdHandler
-public class QueryAllCountCmdExe implements CommandExecutorI<ResultData<Map<String,Integer>>, QueryAllCountCmd> {
+public class QueryAllCountCmdExe implements CommandExecutorI<ResultData<Map<String,Long>>, QueryAllCountCmd> {
 
     @Resource
     private AlarmMapper alarmMapper;
@@ -43,13 +43,13 @@ public class QueryAllCountCmdExe implements CommandExecutorI<ResultData<Map<Stri
     private ClusterMapper clusterMapper;
 
     @Override
-    public ResultData<Map<String,Integer>> execute(QueryAllCountCmd cmd) {
-        ResultData<Map<String,Integer>> resultData = ResultData.success(null);
-        Map<String, Integer> map = new HashMap<>();
-        Integer countAlarm = countAlarm();
-        Integer countApi = countApi();
-        Integer countInstance = countInstance();
-        Integer countCluster = countCluster();
+    public ResultData<Map<String,Long>> execute(QueryAllCountCmd cmd) {
+        ResultData<Map<String,Long>> resultData = ResultData.success(null);
+        Map<String, Long> map = new HashMap<>();
+        Long countAlarm = countAlarm();
+        Long countApi = countApi();
+        Long countInstance = countInstance();
+        Long countCluster = countCluster();
         map.put("countAlarm", countAlarm);
         map.put("countApi", countApi);
         map.put("countInstance",countInstance );
@@ -58,24 +58,24 @@ public class QueryAllCountCmdExe implements CommandExecutorI<ResultData<Map<Stri
         return resultData;
     }
 
-    public Integer countAlarm() {
+    public Long countAlarm() {
         QueryWrapper<AlarmDO> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("is_deleted", HaloConstant.IS_DELETED_FALSE);
         return alarmMapper.selectCount(queryWrapper);
     }
 
-    public Integer countApi() {
+    public Long countApi() {
         QueryWrapper<ApiReleaseDO> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("status", HaloConstant.API_STATUS_ONLINE);
         return apiReleaseMapper.selectCount(queryWrapper);
     }
 
-    public Integer countInstance() {
+    public Long countInstance() {
         QueryWrapper<InstanceDO> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("is_deleted", HaloConstant.IS_DELETED_FALSE);
         return instanceMapper.selectCount(queryWrapper);
     }
-    public Integer countCluster() {
+    public Long countCluster() {
         QueryWrapper<ClusterDO> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("is_deleted", HaloConstant.IS_DELETED_FALSE);
         return clusterMapper.selectCount(queryWrapper);

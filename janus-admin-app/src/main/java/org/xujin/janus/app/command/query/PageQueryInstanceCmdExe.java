@@ -4,7 +4,10 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.google.common.base.Preconditions;
-
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 import org.xujin.halo.annotation.command.CmdHandler;
 import org.xujin.halo.command.CommandExecutorI;
 import org.xujin.halo.dto.PageResult;
@@ -12,19 +15,13 @@ import org.xujin.halo.dto.ResultData;
 import org.xujin.janus.app.command.cmo.query.PageInstanceCmd;
 import org.xujin.janus.app.command.co.InstanceDetailCO;
 import org.xujin.janus.app.converter.InstanceClientConverter;
-import org.xujin.janus.domain.user.ports.ClusterUserPort;
 import org.xujin.janus.infrastructure.common.HaloConstant;
 import org.xujin.janus.infrastructure.tunnel.db.dao.AlarmMapper;
 import org.xujin.janus.infrastructure.tunnel.db.dao.ClusterMapper;
-import org.xujin.janus.infrastructure.tunnel.db.dao.ClusterUserMapper;
 import org.xujin.janus.infrastructure.tunnel.db.dao.InstanceMapper;
 import org.xujin.janus.infrastructure.tunnel.db.dataobject.AlarmDO;
 import org.xujin.janus.infrastructure.tunnel.db.dataobject.ClusterDO;
 import org.xujin.janus.infrastructure.tunnel.db.dataobject.InstanceDO;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.CollectionUtils;
-import org.springframework.util.StringUtils;
 
 import java.util.List;
 
@@ -95,7 +92,7 @@ public class PageQueryInstanceCmdExe implements CommandExecutorI<ResultData<Page
                 queryWrapper.eq("cluster_code", clusterCode);
                 queryWrapper.eq("status", HaloConstant.IS_DELETED_FALSE);
                 queryWrapper.eq("is_deleted", HaloConstant.IS_DELETED_FALSE);
-                Integer integer = alarmMapper.selectCount(queryWrapper);
+                Long integer = alarmMapper.selectCount(queryWrapper);
                 x.setAlarmCount(integer == null ? 0 : integer);
 
                 QueryWrapper<ClusterDO> queryWrapper1 = new QueryWrapper<>();

@@ -1,7 +1,6 @@
 package org.xujin.janus.app.command.co;
 
 import com.alibaba.fastjson.annotation.JSONField;
-import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.Data;
 
 import java.sql.Timestamp;
@@ -21,7 +20,7 @@ public class InstanceDetailCO {
 
     private String clusterName;
     private String ownerName;
-    private Integer alarmCount;
+    private Long alarmCount;
 
     private Byte status;
     @JSONField(format = "yyyy-MM-dd HH:mm:ss")

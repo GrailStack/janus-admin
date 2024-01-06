@@ -30,7 +30,7 @@ public class LoginUserCmdExe implements CommandExecutorI<ResultData<LogInCO>, Lo
             resultData.setMsgContent("login failed");
             return resultData;
         }
-        String username=loginUserCmd.getUsername();
+        String username=loginUserCmd.getUserName();
         String password=loginUserCmd.getPassword();
         if (StringUtils.isBlank(username) || StringUtils.isBlank(password)) {
             resultData.setMsgCode("401");
